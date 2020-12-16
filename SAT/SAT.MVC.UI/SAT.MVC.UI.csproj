@@ -168,12 +168,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CoursController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -206,11 +210,14 @@
     <Content Include="Content\js\bootstrap.bundle-5.0.0.alpha-min.js" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\js\wow.min.js" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
     <Content Include="_Archive\assets\css\animate.css" />
     <Content Include="_Archive\assets\css\bootstrap-5.0.5-alpha.min.css" />
     <Content Include="_Archive\assets\css\LineIcons.2.0.css" />
@@ -271,7 +278,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Courses.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -305,6 +312,43 @@
     <Content Include="_Archive\assets\images\course\.DS_Store" />
     <Content Include="_Archive\assets\js\.DS_Store" />
     <Content Include="Views\Shared\_OriginalLayout.cshtml" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Edit.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\UsersAdmin\Delete.cshtml" />
+    <Content Include="Views\UsersAdmin\Create.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Views\Cours\Create.cshtml" />
+    <Content Include="Views\Cours\Delete.cshtml" />
+    <Content Include="Views\Cours\Details.cshtml" />
+    <Content Include="Views\Cours\Edit.cshtml" />
+    <Content Include="Views\Cours\Index.cshtml" />
+    <Content Include="Views\Cours\ArtCours.cshtml" />
+    <Content Include="Views\Cours\BiologyCours.cshtml" />
+    <Content Include="Views\Cours\BioChemCours.cshtml" />
+    <Content Include="Views\Cours\ChemCours.cshtml" />
+    <Content Include="Views\Cours\CompScienceCours.cshtml" />
+    <Content Include="Views\Cours\EnglishCours.cshtml" />
+    <Content Include="Views\Cours\ForensicCours.cshtml" />
+    <Content Include="Views\Cours\CyberSecurityCours.cshtml" />
+    <Content Include="Views\Cours\EducationCours.cshtml" />
+    <Content Include="Views\Cours\FinanceCours.cshtml" />
+    <Content Include="Views\Cours\ManagementCours.cshtml" />
+    <Content Include="Views\Cours\HistoryCours.cshtml" />
+    <Content Include="Views\Cours\IntBusinessCours.cshtml" />
+    <Content Include="Views\Cours\MarketingCours.cshtml" />
+    <Content Include="Views\Cours\MathCours.cshtml" />
+    <Content Include="Views\Cours\MusicCours.cshtml" />
+    <Content Include="Views\Cours\NursingCours.cshtml" />
+    <Content Include="Views\Cours\PhilosophyCours.cshtml" />
+    <Content Include="Views\Cours\PolScienceCours.cshtml" />
+    <Content Include="Views\Cours\AccountingCours.cshtml" />
+    <Content Include="Views\Cours\EnvScienceCours.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -317,6 +361,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SAT.MVC.DATA\SAT.MVC.DATA.csproj">
+      <Project>{83584081-e641-48ed-81a1-bcda991e4343}</Project>
+      <Name>SAT.MVC.DATA</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
