@@ -49,22 +49,13 @@
                             <a class="navbar-brand" href="index.html">
                                 <img id="logo" src="assets/images/logo.svg" alt="Logo">
                             </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                            </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ml-auto">
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#home">Home</a>
+                                        <a  href=@Url.Action("Index", "Home")>Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#courses">Courses</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="page-scroll" href="#mentors">Mentors</a>
+                                        <a class="page-scroll" href="#majors">Majors</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#blog">Blog</a>
@@ -72,9 +63,17 @@
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#contact">Contact</a>
                                     </li>
+                                    
+                                    @Html.Partial("_LoginPartial")
+                                    @if (User.IsInRole("Admin"))
+                                    {
                                     <li class="nav-item">
-                                        <a class="header-btn btn-hover" href="#courses">Get Started</a>
+                                        @Html.ActionLink("Users", "Index", "UsersAdmin", new { @class = "page-scroll"})
                                     </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Roles", "Index", "RolesAdmin", new { @class = "page-scroll" })
+                                    </li>
+                                    }
                                 </ul>
                             </div> <!-- navbar collapse -->
                         </nav> <!-- navbar -->
