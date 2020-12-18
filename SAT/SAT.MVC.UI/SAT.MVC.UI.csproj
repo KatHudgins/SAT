@@ -363,6 +363,7 @@
     <Content Include="Views\Cours\ActiveCours.cshtml" />
     <Content Include="Views\Cours\NonActiveCours.cshtml" />
     <Content Include="Views\StudentStatus\Tiles.cshtml" />
+    <Content Include="Views\Home\EmailConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

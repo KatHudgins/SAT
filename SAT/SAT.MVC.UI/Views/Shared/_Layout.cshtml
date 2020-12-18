@@ -58,7 +58,7 @@
                                         <a class="page-scroll" href="#blog">Blog</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#contact">Contact</a>
+                                        <a class="page-scroll" href=@Url.Action("Contact", "Home")>Contact</a>
                                     </li>
                                     @if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
                                     {
