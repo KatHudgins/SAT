@@ -1337,9 +1337,9 @@ textarea {
     transition: all 0.3s ease-out 0s;
 }
 
-    .sticky .navbar {
+    /*.sticky .navbar .nav-item {
         padding: 15px 0;
-    }
+    }*/
 
 .navbar {
     padding: 25px 0;
@@ -1364,9 +1364,9 @@ textarea {
 }
 
 
-
 .sticky .navbar-nav .nav-item a {
-    color: #797F8C;
+    color: #f2f2f2;
+    text-decoration:none;
 }
 
     /*.sticky .navbar-nav .nav-item a::before {
@@ -1620,15 +1620,15 @@ hero area css
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #227882;
+    background-color: #747E88;
     z-index: -1;
 }
 
 .hero-area .hero-content h2 {
-    font-size: 55px;
-    font-weight: 700;
-    line-height: 65px;
+    font-size: 4.6em;
+    text-align:center;
     color: #fff;
+    font-family: Algerian;
 }
 
 @media (max-width: 767px) {
@@ -2430,3 +2430,4 @@ footer css
         box-shadow: none;
     }
 }
+
