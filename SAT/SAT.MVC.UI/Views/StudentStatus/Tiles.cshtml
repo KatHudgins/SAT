@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SAT.MVC.DATA.StudentStatus>
+
+@{
+    ViewBag.Title = "Student Status (Tiles)";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-md-6">
+        @Html.ActionLink("Add New Status", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-md-6 text-right" style="margin-bottom:2em;">
+        @Html.ActionLink("View Table", "Index", "StudentStatus", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="statusContainer">
+        <div class="scTitle">
+            <p>
+                @Html.DisplayFor(modelItem => item.SSName)
+            </p>
+        </div>
+        <div class="scNotes">
+            <p>
+                @Html.DisplayFor(modelItem => item.SSDescription)
+            </p>
+        </div>
+        <div class="scFooterRight">
+            @Html.ActionLink("Edit", "Edit", new { id = item.SSID })
+        </div>
+        <div class="scFooterLeft">
+            @* Check to see if THIS value is in use in the main table (this is a look up table in theDB.
+                Update the delete confirmed in the controller as well. *@
+            @if (item.Students.Count == 0)
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.SSID })
+            }
+            else
+            {
+                <span class="purple">In Use</span>
+            }
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+}

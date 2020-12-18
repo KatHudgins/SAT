@@ -1,41 +1,44 @@
 ﻿@model SAT.MVC.DATA.StudentStatus
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit" + Model.SSName;
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>StudentStatus</h4>
-        <hr />
+        @*<h4>BookStatus</h4>
+            <hr />*@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @* Sends the PK to the GET and POST : GET it retrieves the current record, in POST: It defines the record to be updated. *@
         @Html.HiddenFor(model => model.SSID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SSName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div id="smallCreateForm" class="form-group row">
+            @Html.LabelFor(model => model.SSName, htmlAttributes: new { @class = "control-label col-md-2 text-right" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SSName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SSName, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SSDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group row">
+            @Html.LabelFor(model => model.SSDescription, htmlAttributes: new { @class = "control-label col-md-2 text-right" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SSDescription, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SSDescription, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group row">
+            <div class="col-md-12 text-right">
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-danger" })
+                <input type="submit" value="Update" class="btn btn-primary" />
             </div>
         </div>
     </div>

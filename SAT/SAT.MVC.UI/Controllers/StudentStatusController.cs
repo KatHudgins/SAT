@@ -26,28 +26,40 @@ namespace SAT.MVC.UI.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-
-        // GET: StudentStatus/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Tiles()
         {
             if (User.IsInRole("Admin"))
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                StudentStatus studentStatus = db.StudentStatuses.Find(id);
-                if (studentStatus == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(studentStatus);
+                return View(db.StudentStatuses.ToList());
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
         }
+
+
+        //// GET: StudentStatus/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (User.IsInRole("Admin"))
+        //    {
+        //        if (id == null)
+        //        {
+        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //        }
+        //        StudentStatus studentStatus = db.StudentStatuses.Find(id);
+        //        if (studentStatus == null)
+        //        {
+        //            return HttpNotFound();
+        //        }
+        //        return View(studentStatus);
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+        //}
 
         // GET: StudentStatus/Create
         public ActionResult Create()
@@ -129,16 +141,24 @@ namespace SAT.MVC.UI.Controllers
                 StudentStatus studentStatus = db.StudentStatuses.Find(id);
                 if (studentStatus == null)
                 {
+                    //404 error
                     return HttpNotFound();
                 }
-                return View(studentStatus);
+                if (studentStatus.Students.Count == 0)
+                {
+                    return View(studentStatus);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
-        }
 
+        }
         // POST: StudentStatus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

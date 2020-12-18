@@ -362,6 +362,7 @@
     <Content Include="Views\Cours\FilteredCours.cshtml" />
     <Content Include="Views\Cours\ActiveCours.cshtml" />
     <Content Include="Views\Cours\NonActiveCours.cshtml" />
+    <Content Include="Views\StudentStatus\Tiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

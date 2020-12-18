@@ -2365,3 +2365,68 @@ footer css
 
 /******************************Custom Style *************************************/
 
+.statusContainer {
+    width: 30%;
+    float: left;
+    border: 3px solid #535BA0;
+    box-shadow: 16px 16px darkgray;
+    /*padding: 3em 1em;*/
+    padding: 0;
+    position: relative; /*declared so that absolute position can be used in the footer*/
+    /*ensure all cards are the same height*/
+    height: 300px;
+    margin: .8em;
+}
+
+.scTile {
+    padding-top: .75em;
+    margin: 0;
+    border-bottom: 3px solid #535BA0;
+}
+
+    .scTile p {
+        font-size: 1.5em;
+        color: #535BA0;
+        text-align: center;
+    }
+
+.scNotes {
+    padding: 0;
+    margin: 0;
+    background-color: #535BA0;
+    border-bottom: 3px solid #525BA0;
+}
+
+    .scNotes p {
+        height: 200px;
+        width: 90%;
+        margin: auto;
+        color: white;
+    }
+
+.scFooterLeft {
+    position: absolute;
+    bottom: .5em;
+    left: 1em;
+}
+
+.scFooterRight {
+    position: absolute;
+    bottom: .5em;
+    right: 1em;
+}
+
+@media(max-width:750px) {
+    .statusContainer {
+        width: 47%;
+    }
+}
+
+@media(max-width:580px) {
+    .statusContainer {
+        float: none;
+        width: 75%;
+        margin: .76em auto;
+        box-shadow: none;
+    }
+}
