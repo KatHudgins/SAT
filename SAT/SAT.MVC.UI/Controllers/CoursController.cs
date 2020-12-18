@@ -17,28 +17,52 @@ namespace SAT.MVC.UI.Controllers
         // GET: Cours
         public ActionResult Index()
         {
-            return View(db.Courses.ToList());
+            if (User.IsInRole("Admin"))
+            {
+                return View(db.Courses.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
         }
 
         // GET: Cours/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Cours cours = db.Courses.Find(id);
+                if (cours == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(cours);
             }
-            Cours cours = db.Courses.Find(id);
-            if (cours == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(cours);
+            
         }
 
         // GET: Cours/Create
         public ActionResult Create()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
         }
 
         // POST: Cours/Create
@@ -61,16 +85,24 @@ namespace SAT.MVC.UI.Controllers
         // GET: Cours/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Cours cours = db.Courses.Find(id);
+                if (cours == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(cours);
             }
-            Cours cours = db.Courses.Find(id);
-            if (cours == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(cours);
+            
         }
 
         // POST: Cours/Edit/5
@@ -109,158 +141,53 @@ namespace SAT.MVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cours cours = db.Courses.Find(id);
-            db.Courses.Remove(cours);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin"))
+            {
+                Cours cours = db.Courses.Find(id);
+                db.Courses.Remove(cours);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+           
         }
 
-        //Cours/Get/Art
         [HttpGet]
-        public ActionResult ArtCours(string curriculum)
+        public ActionResult ActiveCours()
         {
-
-            return View(db.Courses.Where(c => c.Curriculum == "Art and Graphics Design").ToList());
-        }
-        //Cours/Get/Biology
-        [HttpGet]
-        public ActionResult BiologyCours(string curriculum)
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Biology")).ToList());
-        }
-
-        //Cours/Get/BioChem
-        [HttpGet]
-        public ActionResult BioChemCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("BioChemistry")).ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+            {
+                return View(db.Courses.Where(c => c.IsActive == true).ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
-        //Cours/Get/Chem
         [HttpGet]
-        public ActionResult ChemCours()
+        public ActionResult NonActiveCours()
         {
-            return View(db.Courses.Where(c => c.Curriculum == "Chemistry").ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+            {
+                return View(db.Courses.Where(c => c.IsActive == false).ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
-        //Cours/Get/CompScience
-        [HttpGet]
-        public ActionResult CompScienceCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Computer Science")).ToList());
-        }
 
-        //Cours/Get/English
-        [HttpGet]
-        public ActionResult EnglishCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("English")).ToList());
-        }
-
-        //Cours/Get/Forensics
-        [HttpGet]
-        public ActionResult ForensicCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Forensics")).ToList());
-        }
-
-        //Cours/Get/CyberSecurity
-        [HttpGet]
-        public ActionResult CyberSecurityCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Cyber Security")).ToList());
-        }
-
-        //Cours/Get/Education
-        [HttpGet]
-        public ActionResult EducationCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Education")).ToList());
-        }
-
-        //Cours/Get/Finance
-        [HttpGet]
-        public ActionResult FinanceCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Finance")).ToList());
-        }
-
-        //Cours/Get/Management
-        [HttpGet]
-        public ActionResult ManagementCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Management")).ToList());
-        }
-
-        //Cours/Get/History
-        [HttpGet]
-        public ActionResult HistoryCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("History")).ToList());
-        }
-
-        //Cours/Get/IntBusiness
-        [HttpGet]
-        public ActionResult IntBusinessCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("International Business")).ToList());
-        }
+        //[HttpGet]
+        //public ActionResult FilteredCours(string curriculum)
+        //{
+        //    return View(db.Courses.Where(c => c.Curriculum.Contains(curriculum)).ToList());
+        //}
         
-        //Cours/Get/Marketing
-        [HttpGet]
-        public ActionResult MarketingCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Marketing")).ToList());
-        }
-
-        //Cours/Get/Math
-        [HttpGet]
-        public ActionResult MathCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Mathematics")).ToList());
-        }
-
-        //Cours/Get/Music
-        [HttpGet]
-        public ActionResult MusicCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Music")).ToList());
-        }
-
-        //Cours/Get/Nursing
-        [HttpGet]
-        public ActionResult NursingCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Nursing")).ToList());
-        }
-
-        //Cours/Get/Philosophy
-        [HttpGet]
-        public ActionResult PhilosophyCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Philosophy")).ToList());
-        }
-
-        //Cours/Get/Political Science
-        [HttpGet]
-        public ActionResult PolScienceCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Political Science")).ToList());
-        }
-
-        //Cours/Get/Accounting
-        [HttpGet]
-        public ActionResult AccountingCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Accounting")).ToList());
-        }
-
-        //Cours/Get/EnvScience
-        [HttpGet]
-        public ActionResult EnvScienceCours()
-        {
-            return View(db.Courses.Where(c => c.Curriculum.Contains("Environmental Science")).ToList());
-        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

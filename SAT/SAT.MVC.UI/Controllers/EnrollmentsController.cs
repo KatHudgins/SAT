@@ -17,8 +17,16 @@ namespace SAT.MVC.UI.Controllers
         // GET: Enrollments
         public ActionResult Index()
         {
-            var enrollments = db.Enrollments.Include(e => e.ScheduledClass).Include(e => e.Student).Include(e => e.ScheduledClass.Cours);
-            return View(enrollments.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+            {
+                var enrollments = db.Enrollments.Include(e => e.ScheduledClass).Include(e => e.Student).Include(e => e.ScheduledClass.Cours);
+                return View(enrollments.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+           
 
         }
 
@@ -34,15 +42,31 @@ namespace SAT.MVC.UI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(enrollment);
+            if (User.IsInRole("Admin") || (User.IsInRole("Scheduling")))
+            {
+                return View(enrollment);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
         }
 
         // GET: Enrollments/Create
         public ActionResult Create()
         {
-            ViewBag.ScheduledClassId = new SelectList(db.ScheduledClasses, "ScheduledClassId", "InstructorName");
-            ViewBag.StudentId = new SelectList(db.Students, "StudentId", "FullName");
-            return View();
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+            {
+                ViewBag.ScheduledClassId = new SelectList(db.ScheduledClasses, "ScheduledClassId", "InstructorName");
+                ViewBag.StudentId = new SelectList(db.Students, "StudentId", "FullName");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+           
             
         }
 
@@ -77,9 +101,17 @@ namespace SAT.MVC.UI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ScheduledClassId = new SelectList(db.ScheduledClasses, "ScheduledClassId", "InstructorName", enrollment.ScheduledClassId);
-            ViewBag.StudentId = new SelectList(db.Students, "StudentId", "FirstName", enrollment.StudentId);
-            return View(enrollment);
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+            {
+                ViewBag.ScheduledClassId = new SelectList(db.ScheduledClasses, "ScheduledClassId", "InstructorName", enrollment.ScheduledClassId);
+                ViewBag.StudentId = new SelectList(db.Students, "StudentId", "FirstName", enrollment.StudentId);
+                return View(enrollment);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Enrollment");
+            }
+            
         }
 
         // POST: Enrollments/Edit/5
@@ -112,7 +144,16 @@ namespace SAT.MVC.UI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(enrollment);
+
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+            {
+                return View(enrollment);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Enrollment");
+            }
+           
         }
 
         // POST: Enrollments/Delete/5
@@ -120,10 +161,17 @@ namespace SAT.MVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Enrollment enrollment = db.Enrollments.Find(id);
-            db.Enrollments.Remove(enrollment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin") || (User.IsInRole("Scheduling")))
+            {
+                Enrollment enrollment = db.Enrollments.Find(id);
+                db.Enrollments.Remove(enrollment);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         protected override void Dispose(bool disposing)

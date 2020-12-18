@@ -17,31 +17,55 @@ namespace SAT.MVC.UI.Controllers
         // GET: ScheduledClasses
         public ActionResult Index()
         {
-            var scheduledClasses = db.ScheduledClasses.Include(s => s.Cours).Include(s => s.ScheduledClassStatus);
-            return View(scheduledClasses.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+            {
+                var scheduledClasses = db.ScheduledClasses.Include(s => s.Cours).Include(s => s.ScheduledClassStatus);
+                return View(scheduledClasses.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
         }
 
         // GET: ScheduledClasses/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ScheduledClass scheduledClass = db.ScheduledClasses.Find(id);
+                if (scheduledClass == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(scheduledClass);
             }
-            ScheduledClass scheduledClass = db.ScheduledClasses.Find(id);
-            if (scheduledClass == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(scheduledClass);
+           
         }
 
         // GET: ScheduledClasses/Create
         public ActionResult Create()
         {
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName");
-            ViewBag.SCSID = new SelectList(db.ScheduledClassStatuses, "SCSID", "SCSName");
-            return View();
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+            {
+                ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName");
+                ViewBag.SCSID = new SelectList(db.ScheduledClassStatuses, "SCSID", "SCSName");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
         }
 
         // POST: ScheduledClasses/Create
@@ -66,18 +90,26 @@ namespace SAT.MVC.UI.Controllers
         // GET: ScheduledClasses/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ScheduledClass scheduledClass = db.ScheduledClasses.Find(id);
+                if (scheduledClass == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", scheduledClass.CourseId);
+                ViewBag.SCSID = new SelectList(db.ScheduledClassStatuses, "SCSID", "SCSName", scheduledClass.SCSID);
+                return View(scheduledClass);
             }
-            ScheduledClass scheduledClass = db.ScheduledClasses.Find(id);
-            if (scheduledClass == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", scheduledClass.CourseId);
-            ViewBag.SCSID = new SelectList(db.ScheduledClassStatuses, "SCSID", "SCSName", scheduledClass.SCSID);
-            return View(scheduledClass);
+           
         }
 
         // POST: ScheduledClasses/Edit/5
@@ -101,16 +133,24 @@ namespace SAT.MVC.UI.Controllers
         // GET: ScheduledClasses/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ScheduledClass scheduledClass = db.ScheduledClasses.Find(id);
+                if (scheduledClass == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(scheduledClass);
             }
-            ScheduledClass scheduledClass = db.ScheduledClasses.Find(id);
-            if (scheduledClass == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(scheduledClass);
+           
         }
 
         // POST: ScheduledClasses/Delete/5
@@ -118,10 +158,18 @@ namespace SAT.MVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ScheduledClass scheduledClass = db.ScheduledClasses.Find(id);
-            db.ScheduledClasses.Remove(scheduledClass);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin"))
+            {
+                ScheduledClass scheduledClass = db.ScheduledClasses.Find(id);
+                db.ScheduledClasses.Remove(scheduledClass);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+           
         }
 
         protected override void Dispose(bool disposing)

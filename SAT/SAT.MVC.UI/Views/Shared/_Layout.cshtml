@@ -52,7 +52,7 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ml-auto">
                                     <li class="nav-item">
-                                        <a  href=@Url.Action("Index", "Home")>Home</a>
+                                        <a href=@Url.Action("Index", "Home")>Home</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#majors">Majors</a>
@@ -63,16 +63,36 @@
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#contact">Contact</a>
                                     </li>
-                                    
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+                                    {
+
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Enrollment", "Index", "Enrollments")
+                                        </li>
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Scheduled Classes", "Index", "ScheduledClasses")
+                                        </li>
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Students", "Index", "Students")
+                                        </li>
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Student Statuses", "Index", "StudentStatus")
+                                        </li>
+                                    }
+
                                     @Html.Partial("_LoginPartial")
                                     @if (User.IsInRole("Admin"))
                                     {
-                                    <li class="nav-item">
-                                        @Html.ActionLink("Users", "Index", "UsersAdmin", new { @class = "page-scroll"})
-                                    </li>
-                                    <li class="nav-item">
-                                        @Html.ActionLink("Roles", "Index", "RolesAdmin", new { @class = "page-scroll" })
-                                    </li>
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Courses", "Index", "Cours")
+                                        </li>
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Users", "Index", "UsersAdmin")
+                                        </li>
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Roles", "Index", "RolesAdmin")
+                                        </li>
+
                                     }
                                 </ul>
                             </div> <!-- navbar collapse -->

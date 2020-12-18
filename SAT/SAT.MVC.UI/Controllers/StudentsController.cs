@@ -17,30 +17,52 @@ namespace SAT.MVC.UI.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            var students = db.Students.Include(s => s.StudentStatus);
-            return View(students.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
+            {
+                var students = db.Students.Include(s => s.StudentStatus);
+                return View(students.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+           
         }
 
         // GET: Students/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Scheduling"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Students.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(student);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(student);
         }
 
         // GET: Students/Create
         public ActionResult Create()
         {
-            ViewBag.SSID = new SelectList(db.StudentStatuses, "SSID", "SSName");
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.SSID = new SelectList(db.StudentStatuses, "SSID", "SSName");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         // POST: Students/Create
@@ -64,17 +86,24 @@ namespace SAT.MVC.UI.Controllers
         // GET: Students/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Students.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.SSID = new SelectList(db.StudentStatuses, "SSID", "SSName", student.SSID);
+                return View(student);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            ViewBag.SSID = new SelectList(db.StudentStatuses, "SSID", "SSName", student.SSID);
-            return View(student);
         }
 
         // POST: Students/Edit/5
@@ -97,16 +126,23 @@ namespace SAT.MVC.UI.Controllers
         // GET: Students/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Students.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(student);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(student);
         }
 
         // POST: Students/Delete/5

@@ -1,71 +1,66 @@
 ﻿@model IEnumerable<SAT.MVC.DATA.Cours>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "NonActiveCours";
 }
 
-<h2>Courses</h2>
+<h2>Non-Active Courses</h2>
 
+<a href=@Url.Action("Index", "Cours") class="btn btn-primary">All Courses</a>
 <a href=@Url.Action("ActiveCours", "Cours") class="btn btn-primary">Active Courses</a>
-<a href=@Url.Action("NonActiveCours", "Cours") class="btn btn-primary">Non-Active Courses</a>
-@if  (User.IsInRole("Admin"))
-{
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-}
 <table class="table">
     <tr>
-        <th >
+        <th>
             @Html.DisplayNameFor(model => model.CourseName)
         </th>
-        <th >
+        <th>
             @Html.DisplayNameFor(model => model.CourseDescription)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CreditHours)
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.Curriculum)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Notes)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.IsActive)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseName)
-        </td>
-        <td >
-            @Html.DisplayFor(modelItem => item.CourseDescription)
-        </td>
-        <td >
-            @Html.DisplayFor(modelItem => item.CreditHours)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Curriculum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>*@
-        <td id="td3">
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        @if (User.IsInRole("Admin"))
-        {
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Curriculum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
             </td>
-        }
-    </tr>
-}
+        </tr>
+    }
 
 </table>

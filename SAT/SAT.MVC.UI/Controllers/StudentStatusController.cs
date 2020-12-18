@@ -17,28 +17,49 @@ namespace SAT.MVC.UI.Controllers
         // GET: StudentStatus
         public ActionResult Index()
         {
-            return View(db.StudentStatuses.ToList());
+            if (User.IsInRole("Admin"))
+            {
+                return View(db.StudentStatuses.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         // GET: StudentStatus/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                StudentStatus studentStatus = db.StudentStatuses.Find(id);
+                if (studentStatus == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(studentStatus);
             }
-            StudentStatus studentStatus = db.StudentStatuses.Find(id);
-            if (studentStatus == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(studentStatus);
         }
 
         // GET: StudentStatus/Create
         public ActionResult Create()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         // POST: StudentStatus/Create
@@ -61,16 +82,23 @@ namespace SAT.MVC.UI.Controllers
         // GET: StudentStatus/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                StudentStatus studentStatus = db.StudentStatuses.Find(id);
+                if (studentStatus == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(studentStatus);
             }
-            StudentStatus studentStatus = db.StudentStatuses.Find(id);
-            if (studentStatus == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(studentStatus);
         }
 
         // POST: StudentStatus/Edit/5
@@ -92,16 +120,23 @@ namespace SAT.MVC.UI.Controllers
         // GET: StudentStatus/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                StudentStatus studentStatus = db.StudentStatuses.Find(id);
+                if (studentStatus == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(studentStatus);
             }
-            StudentStatus studentStatus = db.StudentStatuses.Find(id);
-            if (studentStatus == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(studentStatus);
         }
 
         // POST: StudentStatus/Delete/5

@@ -333,27 +333,6 @@
     <Content Include="Views\Cours\Details.cshtml" />
     <Content Include="Views\Cours\Edit.cshtml" />
     <Content Include="Views\Cours\Index.cshtml" />
-    <Content Include="Views\Cours\ArtCours.cshtml" />
-    <Content Include="Views\Cours\BiologyCours.cshtml" />
-    <Content Include="Views\Cours\BioChemCours.cshtml" />
-    <Content Include="Views\Cours\ChemCours.cshtml" />
-    <Content Include="Views\Cours\CompScienceCours.cshtml" />
-    <Content Include="Views\Cours\EnglishCours.cshtml" />
-    <Content Include="Views\Cours\ForensicCours.cshtml" />
-    <Content Include="Views\Cours\CyberSecurityCours.cshtml" />
-    <Content Include="Views\Cours\EducationCours.cshtml" />
-    <Content Include="Views\Cours\FinanceCours.cshtml" />
-    <Content Include="Views\Cours\ManagementCours.cshtml" />
-    <Content Include="Views\Cours\HistoryCours.cshtml" />
-    <Content Include="Views\Cours\IntBusinessCours.cshtml" />
-    <Content Include="Views\Cours\MarketingCours.cshtml" />
-    <Content Include="Views\Cours\MathCours.cshtml" />
-    <Content Include="Views\Cours\MusicCours.cshtml" />
-    <Content Include="Views\Cours\NursingCours.cshtml" />
-    <Content Include="Views\Cours\PhilosophyCours.cshtml" />
-    <Content Include="Views\Cours\PolScienceCours.cshtml" />
-    <Content Include="Views\Cours\AccountingCours.cshtml" />
-    <Content Include="Views\Cours\EnvScienceCours.cshtml" />
     <Content Include="Views\Enrollments\Delete.cshtml" />
     <Content Include="Views\Enrollments\Details.cshtml" />
     <Content Include="Views\Enrollments\Edit.cshtml" />
@@ -380,6 +359,9 @@
     <Content Include="Views\ScheduledClasses\Edit.cshtml" />
     <Content Include="Views\ScheduledClasses\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Cours\FilteredCours.cshtml" />
+    <Content Include="Views\Cours\ActiveCours.cshtml" />
+    <Content Include="Views\Cours\NonActiveCours.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

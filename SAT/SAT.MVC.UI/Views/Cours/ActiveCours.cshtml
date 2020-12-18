@@ -1,11 +1,13 @@
 ﻿@model IEnumerable<SAT.MVC.DATA.Cours>
 
 @{
-    ViewBag.Title = "PhilosophyCours";
+    ViewBag.Title = "ActiveCours";
 }
 
-<h2>PhilosophyCours</h2>
+<h2>Active Courses</h2>
 
+<a href=@Url.Action("Index", "Cours") class="btn btn-primary">All Courses</a>
+<a href=@Url.Action("NonActiveCours", "Cours") class="btn btn-primary">Non-Active Courses</a>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>

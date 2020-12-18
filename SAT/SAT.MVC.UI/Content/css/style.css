@@ -34,18 +34,19 @@ body {
     color: #f2f2f2;
     margin-top: 20%;
 }
-form{
+
+form {
     display: block;
-    margin:  10% 20% 0 20%;
+    margin: 10% 20% 0 20%;
     width: 80%;
     color: #283747;
 }
 
-hr{
+hr {
     width: 83%;
 }
 
-.table{
+.table {
     margin-top: 16%;
 }
 
@@ -1365,7 +1366,7 @@ textarea {
 
 
 .sticky .navbar-nav .nav-item a {
-    color:#797F8C;
+    color: #797F8C;
 }
 
     /*.sticky .navbar-nav .nav-item a::before {
@@ -1398,24 +1399,23 @@ textarea {
         -webkit-transition: all 0.3s ease-out 0s;
         transition: all 0.3s ease-out 0s;
     }
-    .navbar-nav ul li{
-        padding-right: 1.6em;
-        color: #F2f2f2;
 
-    }
+.navbar-nav ul li {
+    padding-right: 1.6em;
+    color: #F2f2f2;
+}
 
 
 
 #registerLink, #loginLink {
     color: #f2f2f2;
-    
 }
 
-        .navbar-nav .nav-item a.active,
-        .navbar-nav .nav-item a:hover {
-            color: #5097BF;
-            text-decoration:none;
-        }
+.navbar-nav .nav-item a.active,
+.navbar-nav .nav-item a:hover {
+    color: #5097BF;
+    text-decoration: none;
+}
 
 
 
